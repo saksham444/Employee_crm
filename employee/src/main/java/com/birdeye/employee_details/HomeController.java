@@ -110,7 +110,7 @@ public class HomeController {
 	Page<Employee> findAllEmployee(Pageable page)
 	{	
 		my_logger.info("in all employee function");
-		return employeeRepo.findAll(page);
+		return empService.findAll(page);
 	}
 	
 	
@@ -121,9 +121,9 @@ public class HomeController {
 	public String registerEod(@RequestParam("id")int id,@RequestParam("date") String ldate) throws ParseException
 	{
 		Date date=new SimpleDateFormat("dd/mm/yyyy").parse(ldate);
-		Employee emp=employeeRepo.getOne(id);
+		Employee emp=empService.getOne(id);
 		emp.setEod(date);
-		employeeRepo.save(emp);
+		empService.save(emp);
 		return "Leave reuest is approved for "+ emp.getfName() + "on "+emp.getEod() ;
 	}
 	//API 6

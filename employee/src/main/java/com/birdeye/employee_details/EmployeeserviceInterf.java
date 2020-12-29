@@ -7,7 +7,7 @@ import java.util.List;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
-public interface EmployeeserviceInterf {
+public interface EmployeeserviceInterf extends EmployeeRepo {
 	
 	
 	public String addEmployee( String f_name, String m_name, String l_name,
@@ -23,5 +23,6 @@ public interface EmployeeserviceInterf {
 	public List<Employee> fetchBymanagername(Long id);
 
 	public void deleteById(long eid);
+
 
 }
