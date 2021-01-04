@@ -116,16 +116,16 @@ public class HomeController {
 	
 	
 	
-	@RequestMapping("leaverequest")
-	@ResponseBody
-	public String registerEod(@RequestParam("id")int id,@RequestParam("date") String ldate) throws ParseException
-	{
-		Date date=new SimpleDateFormat("dd/mm/yyyy").parse(ldate);
-		Employee emp=empService.getOne(id);
-		emp.setEod(date);
-		empService.save(emp);
-		return "Leave reuest is approved for "+ emp.getfName() + "on "+emp.getEod() ;
-	}
+//	@RequestMapping("leaverequest")
+//	@ResponseBody
+//	public String registerEod(@RequestParam("id")int id,@RequestParam("date") String ldate) throws ParseException
+//	{
+//		Date date=new SimpleDateFormat("dd/mm/yyyy").parse(ldate);
+//		Employee emp=empService.getOne(id);
+//		emp.setEod(date);
+//		empService.save(emp);
+//		return "Leave reuest is approved for "+ emp.getfName() + "on "+emp.getEod() ;
+//	}
 	//API 6
 	@RequestMapping("leaveafterdate")
 	@ResponseBody
