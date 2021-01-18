@@ -3,6 +3,8 @@ package com.birdeye.employee_details;
 import java.text.ParseException;
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
+import java.util.concurrent.CompletableFuture;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -23,6 +25,20 @@ public interface EmployeeserviceInterf {
 	public List<Employee> fetchBymanagername(Long id);
 	Page<Employee> findAll(Pageable page);
 	public void deleteById(long eid);
+
+	public Optional<Employee> findByempId(long id);
+
+	public CompletableFuture<List<Employee>> fetchOldestEmployee(String department);
+
+	public CompletableFuture<List<Employee>> fetchYoungestEmployee(String department);
+
+	public CompletableFuture<List<Employee>> fetchEmpByA();
+
+	public CompletableFuture<List<Employee>> fetchEmpByAge25();
+
+	public CompletableFuture<Integer> fetchHeadCountDep(String department);
+
+
 
 
 }

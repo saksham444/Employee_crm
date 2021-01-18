@@ -1,6 +1,7 @@
 package com.birdeye.employee_details;
 
 
+import java.io.Serializable;
 import java.util.*;
 
 import javax.persistence.CascadeType;
@@ -18,14 +19,14 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 @Table(name="employee")
 @Entity
-public class Employee {
+public class Employee implements Serializable  {
 	
 	
 	
 	@Id
 	@GeneratedValue( strategy=GenerationType.IDENTITY)
 	@Column(name="e_id")
-	long 	e_id;
+	long 	id;
 	@Column(name="f_name")
 	String fName;
 	@Column(name="m_name")
@@ -47,7 +48,7 @@ public class Employee {
 	@JoinColumn(name="dep_id",referencedColumnName = "d_id") 
 	Department department;
 	
-	@OneToMany(fetch=FetchType.LAZY,cascade={CascadeType.REFRESH,CascadeType.DETACH,CascadeType.MERGE,CascadeType.PERSIST})
+	@OneToMany(fetch=FetchType.EAGER,cascade={CascadeType.REFRESH,CascadeType.DETACH,CascadeType.MERGE,CascadeType.PERSIST})
 	@JoinColumn(name="emp_id")
 	List<Laptops> laptops;
 	
@@ -120,10 +121,10 @@ public class Employee {
 		this.eod = eod;
 	}
 	public long getId() {
-		return e_id;
+		return id;
 	}
 	public void setId(long id) {
-		this.e_id = id;
+		this.id = id;
 	}
 	public String getfName() {
 		return fName;

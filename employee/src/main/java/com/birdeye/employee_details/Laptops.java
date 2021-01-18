@@ -1,10 +1,12 @@
 package com.birdeye.employee_details;
 
+import java.io.Serializable;
+
 import javax.persistence.*;
 
 @Entity
 
-public class Laptops {
+public class Laptops implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)

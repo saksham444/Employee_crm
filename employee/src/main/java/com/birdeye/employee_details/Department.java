@@ -1,5 +1,6 @@
 package com.birdeye.employee_details;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -8,15 +9,15 @@ import javax.persistence.*;
 
 @Entity
 
-public class Department {
+public class Department implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name="d_id")
-	Long Id;
+	Long id;
 	
 	@Column(name="dep_name")
-	String dep_name;
+	String depName;
 	
 	
 	@Column(name="dep_head")
@@ -32,24 +33,24 @@ public class Department {
 	}
 	public Department(String dep_name, Long dep_head) {
 		super();
-		this.dep_name = dep_name;	
+		this.depName = dep_name;	
 		this.dep_head = dep_head;
 	}
 
 	public Long getId() {
-		return Id;
+		return id;
 	}
 
 	public void setId(Long id) {
-		Id = id;
+		this.id = id;
 	}
 
 	public String getDep_name() {
-		return dep_name;
+		return depName;
 	}
 
 	public void setDep_name(String dep_name) {
-		this.dep_name = dep_name;
+		this.depName = dep_name;
 	}
 
 	public Long getDep_head() {

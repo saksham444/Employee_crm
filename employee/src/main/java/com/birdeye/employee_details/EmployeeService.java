@@ -3,15 +3,21 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 import java.util.TimeZone;
+import java.util.concurrent.CompletableFuture;
 import java.util.logging.Logger;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheConfig;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
-
+@CacheConfig(cacheNames= {"employee1"})
 @Service
 public class EmployeeService implements EmployeeserviceInterf {
 
@@ -75,7 +81,8 @@ public class EmployeeService implements EmployeeserviceInterf {
 
 	}
 	
-	
+
+	@Cacheable(value="findAll")  
 	public Page<Employee> findAll(Pageable page)
 	{
 		Page<Employee> allEmp=empRepo.findAll(page);
@@ -155,11 +162,93 @@ public class EmployeeService implements EmployeeserviceInterf {
 	}
 
 	@Override
+	@CacheEvict(key="#eid")
 	public void deleteById(long eid) {
-		empRepo.deleteById((int)eid);
+		empRepo.deleteById(eid);
 		
 	}
 
 
+	@Override
+	@Cacheable(key="#id")
+	public Optional<Employee> findByempId(long id) {
+		// TODO Auto-generated method stub
+	return empRepo.findById(id);
+	}
+
+	@Async
+	@Override
+	public CompletableFuture<List<Employee>>  fetchOldestEmployee(String department)
+	{
+		
+		try {
+			Thread.sleep(1000);
+			my_logger.info(Thread.currentThread().getName());
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return CompletableFuture.completedFuture(empRepo.fetchOldestEmployee(department));
+	}
+	
+	@Async
+	@Override
+	public CompletableFuture<List<Employee>> fetchYoungestEmployee(String department)
+	{
+		try {
+			Thread.sleep(2000);
+			my_logger.info(Thread.currentThread().getName());
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return CompletableFuture.completedFuture(empRepo.fetchYoungestEmployee(department));
+		
+	}
+	@Async
+	@Override
+	public CompletableFuture<List<Employee>> fetchEmpByA()
+	{
+		try {
+			Thread.sleep(3000);
+			my_logger.info(Thread.currentThread().getName());
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return CompletableFuture.completedFuture(empRepo.fetchEmpByA());
+		
+	}
+	
+	@Async
+	@Override
+	public CompletableFuture<List<Employee>> fetchEmpByAge25()
+	{	try {
+		Thread.sleep(4000);
+		my_logger.info(Thread.currentThread().getName());
+	} catch (InterruptedException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	}
+		
+		return CompletableFuture.completedFuture(empRepo.fetchEmpByAge25());
+	}
+	
+	@Async
+	@Override
+	 public CompletableFuture<Integer> fetchHeadCountDep(String department)
+	{
+		
+		try {
+			Thread.sleep(4000);
+			my_logger.info(Thread.currentThread().getName());
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return CompletableFuture.completedFuture(empRepo.fetchHeadCountDep( department));
+	}
+	 
+	 
 	
 }
